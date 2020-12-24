@@ -18,7 +18,7 @@ var PORT = process.env.PORT || 8080;
 
 // Setup the public folder as static. Handles file loading and prevents path
 // traversal attacks
-app.use(express.static("public"));
+app.use(express.static("./Develop/public"));
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
