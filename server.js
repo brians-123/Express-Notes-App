@@ -4,7 +4,6 @@
 // ==============================================================================
 
 var express = require("express");
-var jquery = require("jquery");
 
 // ==============================================================================
 // EXPRESS CONFIGURATION
@@ -16,6 +15,10 @@ var app = express();
 
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 8080;
+
+// Setup the public folder as static. Handles file loading and prevents path
+// traversal attacks
+app.use(express.static("public"));
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -38,3 +41,5 @@ require("./Develop/public/assets/routes/htmlRoutes")(app);
 app.listen(PORT, function () {
   console.log("App listening on PORT: " + PORT);
 });
+
+//
