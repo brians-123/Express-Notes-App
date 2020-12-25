@@ -4,7 +4,10 @@
 // These data sources hold a notes array
 // ===============================================================================
 
-var noteData = require("../../../db/db.json");
+const noteData = require("../../../db/db.json");
+const fs = require("fs");
+const { cwd } = require("process");
+const path = require("path");
 
 // ===============================================================================
 // ROUTING
@@ -13,8 +16,7 @@ var noteData = require("../../../db/db.json");
 module.exports = function (app) {
   // API GET Requests
   // Below code handles when users "visit" a page.
-  // In each of the below cases when a user visits a link
-  // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
+  // localhost:PORT/api/notes... they are shown a JSON of the data in the table
   // ---------------------------------------------------------------------------
   app.get("/api/notes", function (req, res) {
     res.json(noteData);
@@ -23,17 +25,31 @@ module.exports = function (app) {
   // API POST Requests
   // Below code handles when a user creates a note
   // ---------------------------------------------------------------------------
-
   app.post("/api/notes", function (req, res) {
     // add the note from the post request
     // req.body is available since we're using the body parsing middleware
     noteData.push(req.body);
+    stringifiedStuff = JSON.stringify(noteData);
     res.json(true);
+    console.log(res);
+    fs.writeFile(
+      path.join(__dirname, "../../../db/db.json"),
+      stringifiedStuff,
+      "utf8",
+      (err) =>
+        err
+          ? console.log(err)
+          : console.log("You have successfully updated the JSON file!")
+    );
   });
 
   // ---------------------------------------------------------------------------
   // ability to delete notes goes here
-  // I'll use the splice method
-
+  app.delete("/api/notes/:id", function (req, res) {
+    // add the note from the post request
+    // req.body is available since we're using the body parsing middleware
+    console.log(req.body);
+    res.json({ success: true });
+  });
   // -------------------------------------
 };
