@@ -54,6 +54,8 @@ const handleNoteSave = function () {
   const newNote = {
     title: $noteTitle.val(),
     text: $noteText.val(),
+    //creating an id for deletion. using math.random as placeholder
+    id: Math.random(),
   };
 
   saveNote(newNote).then(() => {
