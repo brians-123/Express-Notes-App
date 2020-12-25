@@ -7,11 +7,11 @@ module.exports = function deleteSelectedNote(id) {
   index = noteData.findIndex((note) => note.id === id);
   //remove the note, stringify it, then update the json file
   noteData.splice(index, 1);
-  stringifiedStuff = JSON.stringify(noteData);
+  stringifieNoteData = JSON.stringify(noteData);
 
   fs.writeFile(
     path.join(__dirname, "../../../db/db.json"),
-    stringifiedStuff,
+    stringifieNoteData,
     "utf8",
     (err) =>
       err

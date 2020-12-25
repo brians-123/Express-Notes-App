@@ -6,10 +6,7 @@
 
 const noteData = require("../../../db/db.json");
 const fs = require("fs");
-const { cwd } = require("process");
 const path = require("path");
-const { Z_FILTERED } = require("zlib");
-// const { tryStuff } = require("../../operations/delete");
 const deleteSelectedNote = require("../operations/delete");
 
 // ===============================================================================
@@ -32,12 +29,11 @@ module.exports = function (app) {
     // add the note from the post request
     // req.body is available since we're using the body parsing middleware
     noteData.push(req.body);
-    stringifiedStuff = JSON.stringify(noteData);
+    stringifiedNoteData = JSON.stringify(noteData);
     res.json(true);
-    console.log(res);
     fs.writeFile(
       path.join(__dirname, "../../../db/db.json"),
-      stringifiedStuff,
+      stringifiedNoteData,
       "utf8",
       (err) =>
         err
